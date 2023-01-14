@@ -16,7 +16,7 @@ object activity:
   case class Timeline(created: LocalDateTime, started: Option[LocalDateTime],
                       completed: Option[LocalDateTime])
 
-  case class Progress(percetnCompleted: Int)
+  case class Progress(percentCompleted: Int)
 
 
   case class ActivityState(timeline: Timeline, progress: Progress)

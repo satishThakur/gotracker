@@ -13,13 +13,13 @@ object goal:
 
   enum State:
     case Created
-    case Starteed
+    case Started
     case Completed
 
   case class Timeline(created: LocalDateTime, started: LocalDateTime,
                       completed: Option[LocalDateTime])
 
-  case class Progress(percetnCompleted: Int)
+  case class Progress(percentCompleted: Int)
 
   case class Goal(id: Id, name: String, description: String, state: State,
                   timeline: Timeline, progress: Progress, activities: List[Activity])
