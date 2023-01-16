@@ -20,7 +20,6 @@ lazy val root = (project in file("modules/core"))
       Libraries.httpsCirce,
       Libraries.circeCore,
       Libraries.circeParser,
-      Libraries.circeExtras,
       Libraries.circeRefined,
     ),
     libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
