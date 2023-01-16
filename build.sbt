@@ -21,8 +21,11 @@ lazy val root = (project in file("modules/core"))
       Libraries.circeCore,
       Libraries.circeParser,
       Libraries.circeRefined,
+      Libraries.munit,
+      Libraries.munitScalaCheck,
+      Libraries.weaver,
+      Libraries.weaverScalaCheck,
     ),
-    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
   )
 
 ThisBuild / assemblyMergeStrategy := {
