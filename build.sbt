@@ -1,15 +1,14 @@
 import Dependencies.Libraries
 
 val scala3Version = "3.2.0"
-idePackagePrefix := Some("com.satish.tracker")
 
-lazy val root = (project in file("."))
+lazy val root = (project in file("modules/core"))
   .settings(
     name := "gotracker",
     version := "0.1.0-SNAPSHOT",
 
     scalaVersion := scala3Version,
-    resolvers += Resolver.sonatypeRepo("snapshots"),
+    resolvers ++= Resolver.sonatypeOssRepos("snapshots"),
     scalacOptions ++= List("-feature", "-deprecation", "-Ykind-projector:underscores", "-source:future"),
 
     libraryDependencies ++= Seq(
