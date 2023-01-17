@@ -15,8 +15,8 @@ class Greeter[F[_]: Monad] extends Http4sDsl[F]:
 
   private val prefix = "rest"
 
-  private val greetingsRoute : HttpRoutes[F] = HttpRoutes.of[F]{
-    case GET -> Root / "goals" => Ok("hello there")
+  private val greetingsRoute: HttpRoutes[F] = HttpRoutes.of[F] { case GET -> Root / "goals" =>
+    Ok("hello there")
   }
 
   val routes: HttpRoutes[F] = Router(
