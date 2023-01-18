@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gotracker.iml" filepath="$PROJECT_DIR$/.idea/modules/gotracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gotracker.iml" filepath="$PROJECT_DIR$/.idea/modules/gotracker.iml" group="gotracker" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/gotracker-build.iml" filepath="$PROJECT_DIR$/.idea/modules/gotracker-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/root.iml" filepath="$PROJECT_DIR$/.idea/modules/root.iml" group="gotracker" />
     </modules>
   </component>
 </project>
