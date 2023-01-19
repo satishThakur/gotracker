@@ -1,5 +1,11 @@
 # gotracker
 
+### Local Development
+1. Go to the deployments/local directory.
+2. Run `sudo docker-compose build gotracker` to build the docker image.
+3. Execute the following `sudo docker-compose up -d`
+
+
 ### Product Specification
 We want to build an application which can track your learning goals. 
 The application will have a mobile app interface for the users to track their goals and a web interface for the admin to manage the users and their goals.
