@@ -6,4 +6,6 @@ object user:
 
   opaque type Id = UUID
 
-  case class User(id: Id, email: String)
+  opaque type Email = String
+
+  case class User(id: Id, email: Email)
