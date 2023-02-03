@@ -5,7 +5,6 @@
     <output-test url="file://$MODULE_DIR$/../../target/scala-2.12/test-classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../..">
-      <excludeFolder url="file://$MODULE_DIR$/../../target" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/bg-jobs" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/global-logging" />
       <excludeFolder url="file://$MODULE_DIR$/../../target/scala-3.2.0" />
