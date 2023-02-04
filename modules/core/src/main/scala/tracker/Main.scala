@@ -9,7 +9,7 @@ import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 object Main extends IOApp:
-  implicit val logger : Logger[IO] = Slf4jLogger.getLogger[IO]
+  given logger : Logger[IO] = Slf4jLogger.getLogger[IO]
 
   private def showEmberBanner[F[_] : Logger](s: Server): F[Unit] =
     Logger[F].info(s"\n${Banner.mkString("\n")}\nHTTP Server started at ${s.address}")

@@ -15,6 +15,7 @@ object Dependencies {
     val munitScalaCheck  = "0.7.29"
     val weaverScalaCheck = "0.8.1"
     val log4cats         = "2.5.0"
+    val logback          = "1.4.5"
   }
 
   object Libraries {
@@ -41,11 +42,14 @@ object Dependencies {
 
     val skunkCore        = "org.tpolecat"        %% "skunk-core"           % V.skunk
     val log4cats         = "org.typelevel"       %% "log4cats-slf4j"       % V.log4cats
+    // Runtime
+    val logback          = "ch.qos.logback"      % "logback-classic"       % V.logback
 
     val munit            = "org.scalameta"       %% "munit"                % V.munit            % Test
     val munitScalaCheck  = "org.scalameta"       %% "munit-scalacheck"     % V.munitScalaCheck  % Test
     val weaver           = "com.disneystreaming" %% "weaver-cats"          % V.weaver           % Test
     val weaverScalaCheck = "com.disneystreaming" %% "weaver-scalacheck"    % V.weaverScalaCheck % Test
+
   }
 }
 
