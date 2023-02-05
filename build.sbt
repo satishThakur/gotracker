@@ -27,6 +27,8 @@ lazy val root = (project in file("modules/core"))
       Libraries.weaverScalaCheck,
       Libraries.log4cats,
       Libraries.logback,
+      Libraries.ciris,
+      Libraries.circeRefined,
     ),
   )
 

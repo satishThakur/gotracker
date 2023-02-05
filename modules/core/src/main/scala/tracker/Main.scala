@@ -7,6 +7,7 @@ import org.http4s.server.Server
 import org.http4s.server.defaults.Banner
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
+import tracker.config.Config
 
 object Main extends IOApp:
   given logger : Logger[IO] = Slf4jLogger.getLogger[IO]
@@ -17,10 +18,12 @@ object Main extends IOApp:
   override def run(args: List[String]): IO[ExitCode] =
     val apiApp = Greeter[IO].routes.orNotFound
     (for {
+      cfg <- Config.load[IO]
+      _ <- Logger[IO].info(s"Starting server with config: $cfg")
       _ <- EmberServerBuilder
         .default[IO]
         .withHost(ipv4"0.0.0.0")
-        .withPort(port"8055")
+        .withPort(cfg.port)
         .withHttpApp(apiApp)
         .build
         .evalTap(showEmberBanner[IO])

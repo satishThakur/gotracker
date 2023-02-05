@@ -16,6 +16,7 @@ object Dependencies {
     val weaverScalaCheck = "0.8.1"
     val log4cats         = "2.5.0"
     val logback          = "1.4.5"
+    val ciris            = "3.0.0"
   }
 
   object Libraries {
@@ -44,6 +45,8 @@ object Dependencies {
     val log4cats         = "org.typelevel"       %% "log4cats-slf4j"       % V.log4cats
     // Runtime
     val logback          = "ch.qos.logback"      % "logback-classic"       % V.logback
+    val ciris            = "is.cir"              %% "ciris"                % V.ciris
+    val cirisRefined     = "is.cir"              %% "ciris-refined"        % V.ciris
 
     val munit            = "org.scalameta"       %% "munit"                % V.munit            % Test
     val munitScalaCheck  = "org.scalameta"       %% "munit-scalacheck"     % V.munitScalaCheck  % Test
