@@ -10,6 +10,11 @@ final case class Config(
     port: Port
 )
 
+final case class TokenKeyPair(
+    publicKey: String,
+    privateKey: String
+)
+
 object Config:
   given ConfigDecoder[String, Port] =
     ConfigDecoder[String].mapOption("com.comcast.ip4s.Port")(Port.fromString)
