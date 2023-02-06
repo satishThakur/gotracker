@@ -28,7 +28,7 @@ lazy val root = (project in file("modules/core"))
       Libraries.log4cats,
       Libraries.logback,
       Libraries.ciris,
-      Libraries.circeRefined,
+      Libraries.jwtCore,
     ),
   )
 

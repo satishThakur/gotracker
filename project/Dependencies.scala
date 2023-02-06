@@ -17,6 +17,7 @@ object Dependencies {
     val log4cats         = "2.5.0"
     val logback          = "1.4.5"
     val ciris            = "3.0.0"
+    val jwtCore          = "9.1.2"
   }
 
   object Libraries {
@@ -47,6 +48,8 @@ object Dependencies {
     val logback          = "ch.qos.logback"      % "logback-classic"       % V.logback
     val ciris            = "is.cir"              %% "ciris"                % V.ciris
     val cirisRefined     = "is.cir"              %% "ciris-refined"        % V.ciris
+
+    val jwtCore      = "com.github.jwt-scala"    %% "jwt-core"           % V.jwtCore
 
     val munit            = "org.scalameta"       %% "munit"                % V.munit            % Test
     val munitScalaCheck  = "org.scalameta"       %% "munit-scalacheck"     % V.munitScalaCheck  % Test
