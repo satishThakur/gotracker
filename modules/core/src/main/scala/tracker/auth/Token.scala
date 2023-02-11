@@ -10,6 +10,7 @@ import scala.concurrent.duration.FiniteDuration
 import scala.util.{Failure, Success}
 import io.circe.syntax.*
 import io.circe.parser.*
+import org.typelevel.log4cats.Logger
 
 import scala.util.control.NoStackTrace
 
@@ -62,7 +63,7 @@ trait Token[F[_], User]:
     def verify(token: String): F[User]
 
 object Token:
-  def makeSymToken[F[_]: MonadThrow, User: Encoder : Decoder]
+  def makeSymToken[F[_]: MonadThrow : Logger, User: Encoder : Decoder]
   (secret: SecretKey)(using Cl : Claim[F, User]): Token[F, User] =
     new Token[F, User]:
       override def create(user: User): F[String] =
@@ -72,7 +73,7 @@ object Token:
       override def verify(token: String): F[User] =
         Jwt.decode(token, secret.value, Seq(JwtAlgorithm.HS512)) match
           case Success(value) =>
-            Cl.extractUser(value)
+            Logger[F].info(s"got claim $value") *> Cl.extractUser(value)
           case _ => ValidationException(ValidationError.InvalidToken).raiseError
 
   def makeAsymToken[F[_]: MonadThrow, User: Encoder : Decoder]

@@ -23,7 +23,8 @@ object JwtMiddleware:
       ls => ls.head.value
     }
 
-  def middleware[F[_]: MonadThrow, U](authUser: Kleisli[OptionT[F,_], Request[F], U]): AuthMiddleware[F, U] =
+
+  private def middleware[F[_]: MonadThrow, U](authUser: Kleisli[OptionT[F,_], Request[F], U]): AuthMiddleware[F, U] =
     service => Kleisli {
       req =>
         OptionT(authUser(req).value.flatMap {
@@ -31,3 +32,6 @@ object JwtMiddleware:
           case None => Some(Response(Status.Unauthorized)).pure[F]
         })
     }
+
+  def middleware[F[_]: MonadThrow, U](token: Token[F, U]): AuthMiddleware[F, U] =
+    middleware(authUser(token))
