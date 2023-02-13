@@ -7,7 +7,7 @@ import org.http4s.server.Server
 import org.http4s.server.defaults.Banner
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
-import tracker.config.Config
+import tracker.config.{Config,TokenKeyPair }
 import tracker.auth.{Token, AsymmetricKeyPair, JwtMiddleware}
 import tracker.domain.user.User
 
@@ -20,12 +20,12 @@ object Main extends IOApp:
   override def run(args: List[String]): IO[ExitCode] =
     val privateKey = "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCz281T2SID8R+k\nUyNPySumwh+pC8NiaM6eZKXqFdBRQXJZGQBe6safPttnsTtCL4prC0rVPdCMhL9P\nEPaXz3mfuoJmj+l5sHxErbLqw9DAACOTHSoeFMzqsvgobwnRv7O/XNmRlIRbNFwU\nWETkRVWqqx3wXZ7l/nEdvdh5yLwW/2aYCJfNslJho+l4WlhqukSKnj/9DI6+XGB/\n900IX8zhi1H7ZulTkLqKZhuXYVvKbsi4u5gi1MDSF1Mh5ZEhJd0bUKniByAHILC7\nAO+h/Q8ehbVOgGLBpsN1HLpgZa/o2PIkl4zGKpkn0UuKIq8J5MN8K3rqEbbkOXf3\nO3EZWNVfAgMBAAECggEABOPDwCKsyOxdQQAhn+rQMZBqEssHE6uMoDHDJ9RSRqxk\nQJfZ+98xjgmfb67QrHiJ1Rzjw+822xsgyqIRJHZJ0DFMKkSBnrnjS5GNWEABcpJF\nQMBZFezYjnsxZjpMSy+FUA+uKEXpYPqIAcEElVAkGcxK3BPByrgRSzNqqYBcuCNL\ncxP8A6IJoEXJZPAZZqxztflI6YlON6FYjViyhgTz2gMFPrFjH99TbXc9/q2accA9\n4Al/lTC387Yyk8cVfsDqDriWrGprXmPecHx9lygzx5VMs0XD4SR1JirdNILUWFKl\nuxkizjUgEn8u3HTqswM+j2BTvosk7U92CRrcA4BYAQKBgQDRoyqYkIVc3LLOZLm5\nZreDYOl2Yah75CIZJOIWOxHx50myUIWkTn53pQRdNAbf1u75+ttudyY/O8u9oCxF\nWgtbT72rXXUwfSPr/+LkUu8oMJ500s7vdlIjtX8KKm8C4UrDZr0N+KRnY6ZnzDXV\nWvbuYwsyXAOhuoMt1gDVFkbP3wKBgQDboq4tw8cNKWXySkIcpZJCC8JpofgPbxAN\nFe+hEIpX7J/8XOngLe93vUKKI/HjAJQPEjRKs1srugevAOkP0v2nc4HMX01T6vrC\nyp/hZ4KPb/cOpWBKEiNHWx5vcECcUewPiaJPHNi1rfE4xW215Wm/X+U2fXcrbgyC\nsz7M2mCqgQKBgGkNxWjS86IHjytS2qeIS+pwhE4ovk/nkRbcntfZHjMFXq8XHwGp\nvEKk1T0Ht3IwuW1YQuJmnyoNAxqxy72tVAecPEZF/VYhQAEiKEeXL/YJ9z4/7iee\nOadfapxji2H8GIU3VQJNWcXd8CQP9+JFRX1M8O15ovBHETnFBoHCOhYtAoGBAMVb\nG9ohppYsEeAyW8+z84WHXY1fri/oI2suv+FhpH43MNcqgjkf7aMRnF3WyL6qwV/9\ngqFxIsZa5haZ4dKHS8gQ4ZxMMobqiaNJQXrgcRAEkuJFNg242JyAwwttuZD9h/m6\nOe+OwygVgcD6noeo+mmteKCLAu8ydulmuVKIE/6BAoGBAK+7Qvg2JoprfkB7CAio\n7h+cRG2bzda+WXH/hOLl7I/dGH9hv2wlvh7z61zwfRzkFhkExUlUH1v0fOFnzzh+\nX56gcVB1h1yVU0LkvS7dpdTzd4c3HruOV//Cw70uvZO17Its8yil3640ltH1m9om\nMFtIeOWAFO63+e+u8VifENDd\n-----END PRIVATE KEY-----"
     val publicKey = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs9vNU9kiA/EfpFMjT8kr\npsIfqQvDYmjOnmSl6hXQUUFyWRkAXurGnz7bZ7E7Qi+KawtK1T3QjIS/TxD2l895\nn7qCZo/pebB8RK2y6sPQwAAjkx0qHhTM6rL4KG8J0b+zv1zZkZSEWzRcFFhE5EVV\nqqsd8F2e5f5xHb3Yeci8Fv9mmAiXzbJSYaPpeFpYarpEip4//QyOvlxgf/dNCF/M\n4YtR+2bpU5C6imYbl2Fbym7IuLuYItTA0hdTIeWRISXdG1Cp4gcgByCwuwDvof0P\nHoW1ToBiwabDdRy6YGWv6NjyJJeMxiqZJ9FLiiKvCeTDfCt66hG25Dl39ztxGVjV\nXwIDAQAB\n-----END PUBLIC KEY-----"
-    val asymToken = Token.makeAsymToken[IO, User](AsymmetricKeyPair(privateKey, publicKey))
-    val middleware = JwtMiddleware.middleware[IO, User](asymToken)
-    val apiApp = Greeter[IO].routes(middleware).orNotFound
     (for {
-      cfg <- Config.load[IO]
+      cfg <- Config.load[IO].map(c => c.copy(tokenKeyPair = TokenKeyPair(publicKey, privateKey)))
       _ <- Logger[IO].info(s"Starting server with config: $cfg")
+      asymToken = Token.makeAsymToken[IO, User](AsymmetricKeyPair(cfg.tokenKeyPair.privateKey, cfg.tokenKeyPair.publicKey))
+      middleware = JwtMiddleware.middleware[IO, User](asymToken)
+      apiApp = Greeter[IO].routes(middleware).orNotFound
       _ <- EmberServerBuilder
         .default[IO]
         .withHost(ipv4"0.0.0.0")

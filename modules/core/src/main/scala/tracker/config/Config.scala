@@ -7,7 +7,8 @@ import cats.effect.kernel.Async
 import cats.syntax.all.*
 
 final case class Config(
-    port: Port
+    port: Port,
+    tokenKeyPair: TokenKeyPair
 )
 
 final case class TokenKeyPair(
@@ -24,6 +25,6 @@ object Config:
       .as[Port]
       .default(port"8080")
       .load[F]
-      .map(Config(_))
+      .map(Config(_, TokenKeyPair("", "")))
 
 
