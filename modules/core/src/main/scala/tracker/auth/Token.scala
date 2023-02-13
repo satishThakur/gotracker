@@ -76,7 +76,7 @@ object Token:
             Logger[F].info(s"got claim $value") *> Cl.extractUser(value)
           case _ => ValidationException(ValidationError.InvalidToken).raiseError
 
-  def makeAsymToken[F[_]: MonadThrow, User: Encoder : Decoder]
+  def makeAsymToken[F[_]: MonadThrow : Logger, User: Encoder : Decoder]
   (keyPair: AsymmetricKeyPair)(using Cl: Claim[F, User]): Token[F, User] =
     new Token[F, User]:
       override def create(user: User): F[String] =
@@ -86,7 +86,7 @@ object Token:
       override def verify(token: String): F[User] =
         Jwt.decode(token, keyPair.publicKey, Seq(JwtAlgorithm.RS256)) match
           case Success(value) =>
-            Cl.extractUser(value)
+            Logger[F].info(s"got claim $value") *> Cl.extractUser(value)
           case _ => ValidationException(ValidationError.InvalidToken).raiseError
 
 end Token

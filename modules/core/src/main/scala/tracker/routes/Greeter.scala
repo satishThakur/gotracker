@@ -23,7 +23,7 @@ class Greeter[F[_]: Monad : Logger] extends Http4sDsl[F]:
 
   private val authGreetingRoute : AuthedRoutes[User, F] = AuthedRoutes.of[User, F] {
     case GET -> Root / "goals" as user =>
-      Logger[F].info("sending greeting back.") *> Ok(s"hello there ${user.email}")
+      Logger[F].info("sending greeting back.") *> Ok(s"hello there $user")
   }
 
   def routes(authMiddleware: AuthMiddleware[F, User]): HttpRoutes[F] = Router(
