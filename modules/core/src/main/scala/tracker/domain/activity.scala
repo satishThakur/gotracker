@@ -25,3 +25,5 @@ object activity:
 
   object Activity:
     case class BookReading(id: Id, name: String, description: String, state: ActivityState) extends Activity
+
+    case class BookReadingRequest(name: String, description: String)
