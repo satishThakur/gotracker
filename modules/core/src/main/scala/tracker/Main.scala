@@ -10,6 +10,7 @@ import org.typelevel.log4cats.slf4j.Slf4jLogger
 import tracker.config.{Config,TokenKeyPair }
 import tracker.auth.{Token, AsymmetricKeyPair, JwtMiddleware}
 import tracker.domain.user.User
+import tracker.modules.HttpApi
 
 object Main extends IOApp:
   given logger : Logger[IO] = Slf4jLogger.getLogger[IO]
@@ -23,14 +24,12 @@ object Main extends IOApp:
     (for {
       cfg <- Config.load[IO].map(c => c.copy(tokenKeyPair = TokenKeyPair(publicKey, privateKey)))
       _ <- Logger[IO].info(s"Starting server with config: $cfg")
-      asymToken = Token.makeAsymToken[IO, User](AsymmetricKeyPair(cfg.tokenKeyPair.privateKey, cfg.tokenKeyPair.publicKey))
-      middleware = JwtMiddleware.middleware[IO, User](asymToken)
-      apiApp = Greeter[IO].routes(middleware).orNotFound
+      httpApi = HttpApi[IO](cfg.tokenKeyPair)
       _ <- EmberServerBuilder
         .default[IO]
         .withHost(ipv4"0.0.0.0")
         .withPort(cfg.port)
-        .withHttpApp(apiApp)
+        .withHttpApp(httpApi.httpApp)
         .build
         .evalTap(showEmberBanner[IO])
         .use(_ => IO.never)

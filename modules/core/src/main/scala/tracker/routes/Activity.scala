@@ -7,6 +7,7 @@ import org.http4s.server.{AuthMiddleware, Router}
 import org.typelevel.log4cats.Logger
 import tracker.domain.activity.Activity.BookReadingRequest
 import tracker.domain.user.User
+import cats.syntax.all.*
 
 /** Create a new activity for a particular user. Pause an activty. Finish an activity.
   */
@@ -16,12 +17,9 @@ class Activity[F[_]: Monad : Logger] extends Http4sDsl[F]:
 
   private val createActivity = HttpRoutes.of[F] {
     case req @ POST -> Root / `prefix` / "activity" =>
-      for {
-        _ <- Logger[F].info("Create activity")
-        _ <- req.decode[BookReadingRequest] { activity =>
-          Logger[F].info(s"Create activity ${activity}")
-        }
-      } yield Ok()
+      req.decodeR[BookReadingRequest] { activity =>
+        Logger[F].info(s"Create activity ${activity}") *> Ok()
+      }
   }
 
   def routes(authMiddleware: AuthMiddleware[F, User]): HttpRoutes[F] = Router(
