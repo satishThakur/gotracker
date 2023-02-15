@@ -1,5 +1,7 @@
 package tracker.domain
 
+import io.circe.Codec
+
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -26,4 +28,4 @@ object activity:
   object Activity:
     case class BookReading(id: Id, name: String, description: String, state: ActivityState) extends Activity
 
-    case class BookReadingRequest(name: String, description: String)
+    case class BookReadingRequest(name: String, description: String) derives Codec.AsObject
