@@ -4,7 +4,7 @@ services:
   gotracker:
     image: gotracker:latest
     ports:
-      - "8055:8055"
+      - "8080:8080"
     build:
       context: ../../
       dockerfile: Dockerfile

@@ -4,5 +4,5 @@ RUN sbt root/assembly
 
 FROM openjdk:19-alpine3.16
 COPY --from=builder /root/modules/core/target/scala-3.2.1/gotracker-assembly-0.1.0-SNAPSHOT.jar /app.jar
-EXPOSE 8055
+EXPOSE 8080
 CMD ["java", "-jar", "/app.jar"]
