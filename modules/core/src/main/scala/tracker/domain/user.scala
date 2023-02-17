@@ -14,8 +14,3 @@ object user:
   type Email = Email.Type
 
   case class User(id: Id, email: Email) derives Codec.AsObject
-
-object UserApp extends App:
-  import user.*
-  val u = User(Id(UUID.randomUUID()), Email("satish.manit@gmail.com"))
-  println(u.asJson)

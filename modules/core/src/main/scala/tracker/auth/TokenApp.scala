@@ -6,7 +6,7 @@ import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 import java.util.UUID
-
+/**
 object TokenApp extends IOApp.Simple:
   given logger : Logger[IO] = Slf4jLogger.getLogger[IO]
   override def run: IO[Unit] =
@@ -21,3 +21,5 @@ object TokenApp extends IOApp.Simple:
       uu <- asymToken.verify(t)
       _ <- IO.println(uu)
     } yield ()
+
+**/

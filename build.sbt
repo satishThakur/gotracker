@@ -5,6 +5,7 @@ lazy val root = (project in file("modules/core"))
   .settings(
     name := "gotracker",
     version := "0.1.0-SNAPSHOT",
+    assembly / mainClass := Some("tracker.Main"),
 
     scalaVersion := scala3Version,
     resolvers ++= Resolver.sonatypeOssRepos("snapshots"),
@@ -36,6 +37,8 @@ ThisBuild / assemblyMergeStrategy := {
   case PathList(ps @ _*) if ps.last endsWith ".html" => MergeStrategy.first
   case "application.conf"                            => MergeStrategy.concat
   case "unwanted.txt"                                => MergeStrategy.discard
+  case PathList("module-info.class") => MergeStrategy.discard
+  case PathList("META-INF", "versions", xs@_, "module-info.class") => MergeStrategy.discard
   case x =>
     val oldStrategy = (ThisBuild / assemblyMergeStrategy).value
     oldStrategy(x)
