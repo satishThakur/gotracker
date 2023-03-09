@@ -23,7 +23,7 @@ object Config:
   def load[F[_]: Async]: F[Config] =
     env("HTTP_PORT")
       .as[Port]
-      .default(port"8080")
+      .default(port"8085")
       .load[F]
       .map(Config(_, TokenKeyPair("", "")))
 

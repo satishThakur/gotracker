@@ -4,7 +4,18 @@ services:
   gotracker:
     image: gotracker:latest
     ports:
-      - "8080:8080"
+      - "8085:8085"
     build:
       context: ../../
       dockerfile: Dockerfile
+  db:
+    image: postgres:15.2
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer:4.8.0-standalone
+    restart: always
+    ports:
+        - "8080:8080"
